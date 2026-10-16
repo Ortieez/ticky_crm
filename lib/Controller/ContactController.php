@@ -1,10 +1,10 @@
 <?php
 
-namespace OCA\TickyCRM\Controller;
+namespace OCA\StickyCRM\Controller;
 
 use OCA\DAV\CardDAV\CardDavBackend;
-use OCA\TickyCRM\Service\AccessService;
-use OCA\TickyCRM\Service\ClientContactService;
+use OCA\StickyCRM\Service\AccessService;
+use OCA\StickyCRM\Service\ClientContactService;
 use OCP\AppFramework\ApiController;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
@@ -54,8 +54,8 @@ class ContactController extends ApiController {
             );
         } catch (\Throwable $e) {
             $this->logger->error(
-                'Ticky CRM: Kontaktsuche fehlgeschlagen: ' . $e->getMessage(),
-                ['app' => 'ticky_crm', 'exception' => $e]
+                'Sticky CRM: Kontaktsuche fehlgeschlagen: ' . $e->getMessage(),
+                ['app' => 'sticky_crm', 'exception' => $e]
             );
             return new DataResponse([], 500);
         }

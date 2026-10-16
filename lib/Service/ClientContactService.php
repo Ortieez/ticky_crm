@@ -1,10 +1,10 @@
 <?php
-namespace OCA\TickyCRM\Service;
+namespace OCA\StickyCRM\Service;
 
 use OCP\IURLGenerator;
 use OCP\L10N\IFactory;
-use OCA\TickyCRM\DB\ClientContact;
-use OCA\TickyCRM\DB\ClientContactMapper;
+use OCA\StickyCRM\DB\ClientContact;
+use OCA\StickyCRM\DB\ClientContactMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 use Psr\Log\LoggerInterface;
@@ -104,8 +104,8 @@ class ClientContactService {
             }
         } catch (\Throwable $e) {
             $this->logger->warning(
-                'Ticky CRM: vCard konnte nicht geparst werden (id: ' . ($card['id'] ?? '?') . ')',
-                ['app' => 'ticky_crm']
+                'Sticky CRM: vCard konnte nicht geparst werden (id: ' . ($card['id'] ?? '?') . ')',
+                ['app' => 'sticky_crm']
             );
             $displayName = 'Unbekannt';
         }
@@ -227,8 +227,8 @@ class ClientContactService {
             );
         } catch (\Throwable $e) {
             $this->logger->warning(
-                'Ticky CRM: Activity für Kontakt-' . $action . ' konnte nicht erstellt werden: ' . $e->getMessage(),
-                ['app' => 'ticky_crm']
+                'Sticky CRM: Activity für Kontakt-' . $action . ' konnte nicht erstellt werden: ' . $e->getMessage(),
+                ['app' => 'sticky_crm']
             );
         }
     }

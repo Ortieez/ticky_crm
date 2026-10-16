@@ -3,22 +3,22 @@
 ## ER Diagram
 ```mermaid
 erDiagram
-    ticky_clients ||--o{ ticky_client_notes : has
-    ticky_clients ||--o{ ticky_client_addresses : "is located to"
-    ticky_clients ||--o{ ticky_client_contacts : "reachable by"
-    ticky_client_contacts ||--|{ oc_cards : "is related to"
-    ticky_clients {
+    sticky_clients ||--o{ sticky_client_notes : has
+    sticky_clients ||--o{ sticky_client_addresses : "is located to"
+    sticky_clients ||--o{ sticky_client_contacts : "reachable by"
+    sticky_client_contacts ||--|{ oc_cards : "is related to"
+    sticky_clients {
         id integer PK
     }
-    ticky_client_notes {
-        id integer PK
-        client_id integer FK
-    }
-    ticky_client_addresses {
+    sticky_client_notes {
         id integer PK
         client_id integer FK
     }
-    ticky_client_contacts {
+    sticky_client_addresses {
+        id integer PK
+        client_id integer FK
+    }
+    sticky_client_contacts {
         id integer PK
         client_id integer FK
         card_id integer FK
@@ -28,7 +28,7 @@ erDiagram
     }
 ```
 
-## Table: ticky_clients
+## Table: sticky_clients
 Client / customer informations
 
 | Column | Type | Options | Constraints | Meaning |
@@ -52,7 +52,7 @@ Client / customer informations
 | created_at | datetime |  |  | Client record create date |
 | updated_at | datetime |  |  | Client record update date |
 
-## Table: ticky_client_notes
+## Table: sticky_client_notes
 Client / customer notes
 
 | Column | Type | Options | Constraints | Meaning |
@@ -66,7 +66,7 @@ Client / customer notes
 | created_at | datetime |  |  | Client note record create date |
 | updated_at | datetime |  |  | Client note record update date |
 
-## Table: ticky_client_addresses
+## Table: sticky_client_addresses
 Client / customer addresses
 
 | Column | Type | Options | Constraints | Meaning |
@@ -84,7 +84,7 @@ Client / customer addresses
 | created_at | datetime |  |  | Client address record create date |
 | updated_at | datetime |  |  | Client address record update date |
 
-## Table: ticky_client_contacts
+## Table: sticky_client_contacts
 Client / customer contacts
 
 | Column | Type | Options | Constraints | Meaning |

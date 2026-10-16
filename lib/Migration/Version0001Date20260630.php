@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\TickyCRM\Migration;
+namespace OCA\StickyCRM\Migration;
 
 use OCP\Migration\IMigrationStep;
 use OCP\Migration\IOutput;
@@ -14,7 +14,7 @@ class Version0001Date20260630 implements IMigrationStep {
     }
 
     public function description(): string {
-        return 'Erstellt die Tabelle ticky_client_addresses für Multi-Standort-Support.';
+        return 'Erstellt die Tabelle sticky_client_addresses für Multi-Standort-Support.';
     }
 
     public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
@@ -24,8 +24,8 @@ class Version0001Date20260630 implements IMigrationStep {
     public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
         $schema = $schemaClosure();
 
-        if (!$schema->hasTable('ticky_client_addresses')) {
-            $table = $schema->createTable('ticky_client_addresses');
+        if (!$schema->hasTable('sticky_client_addresses')) {
+            $table = $schema->createTable('sticky_client_addresses');
 
             $table->addColumn('id', 'integer', ['autoincrement' => true, 'unsigned' => true]);
             $table->addColumn('client_id', 'integer', ['unsigned' => true, 'notnull' => true]);
@@ -42,11 +42,11 @@ class Version0001Date20260630 implements IMigrationStep {
 
             $table->setPrimaryKey(['id']);
 
-            $table->addIndex(['client_id'], 'ticky_crm_adr_cid_idx');
-            $table->addIndex(['client_id', 'type'], 'ticky_crm_adr_c_type_idx');
+            $table->addIndex(['client_id'], 'sticky_crm_adr_cid_idx');
+            $table->addIndex(['client_id', 'type'], 'sticky_crm_adr_c_type_idx');
 
             $table->addForeignKeyConstraint(
-                $schema->getTable('ticky_clients'),
+                $schema->getTable('sticky_clients'),
                 ['client_id'],
                 ['id'],
                 ['onDelete' => 'CASCADE']

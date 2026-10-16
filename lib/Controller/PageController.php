@@ -1,12 +1,12 @@
 <?php
-namespace OCA\TickyCRM\Controller;
+namespace OCA\StickyCRM\Controller;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\RedirectResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
 use OCP\IURLGenerator;
-use OCA\TickyCRM\Service\AccessService;
+use OCA\StickyCRM\Service\AccessService;
 use OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;

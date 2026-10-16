@@ -1,13 +1,13 @@
 <template>
-  <header class="ticky-header">
-    <div class="ticky-header__left">
-      <h2 class="ticky-header__title">
+  <header class="sticky-header">
+    <div class="sticky-header__left">
+      <h2 class="sticky-header__title">
         {{ title }}
       </h2>
-      <span v-if="subtitle" class="ticky-header__subtitle">{{ subtitle }}</span>
+      <span v-if="subtitle" class="sticky-header__subtitle">{{ subtitle }}</span>
     </div>
 
-    <div class="ticky-header__actions">
+    <div class="sticky-header__actions">
       <slot name="actions" />
     </div>
   </header>
@@ -27,7 +27,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.ticky-header {
+.sticky-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,7 +76,7 @@ defineProps({
 }
 
 @media (max-width: 768px) {
-  .ticky-header {
+  .sticky-header {
     padding: 12px 16px 12px 56px;
 
     &__title { font-size: 17px; }

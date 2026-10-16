@@ -1,9 +1,9 @@
 <?php
 
-namespace OCA\TickyCRM\Service;
+namespace OCA\StickyCRM\Service;
 
-use OCA\TickyCRM\DB\AddressMapper;
-use OCA\TickyCRM\DB\Address;
+use OCA\StickyCRM\DB\AddressMapper;
+use OCA\StickyCRM\DB\Address;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 class AddressService {

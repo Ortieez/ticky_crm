@@ -1,8 +1,8 @@
 <?php
-namespace OCA\TickyCRM\Controller;
+namespace OCA\StickyCRM\Controller;
 
-use OCA\TickyCRM\Service\ClientContactService;
-use OCA\TickyCRM\Service\ClientService;
+use OCA\StickyCRM\Service\ClientContactService;
+use OCA\StickyCRM\Service\ClientService;
 use OCP\AppFramework\ApiController;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Http;
@@ -47,6 +47,21 @@ class ClientController extends ApiController {
     #[NoAdminRequired]
     public function create(): DataResponse {
         try {
+            $bulkRecords = $this->request->getParam('bulk_records', null);
+            if (is_array($bulkRecords)) {
+                return new DataResponse($this->service->importBulk($bulkRecords));
+            }
+
+            $extractAssignees = $this->request->getParam('extract_assignees', null);
+            if ($extractAssignees !== null) {
+                $overwrite = (bool)$this->request->getParam('overwrite', false);
+                $updated = $this->service->extractAssigneesFromClientNumber($overwrite);
+                return new DataResponse([
+                    'updated' => $updated,
+                    'clients' => $this->service->all(),
+                ]);
+            }
+
             $params = $this->request->getParams();
             $addresses = $this->request->getParam('addresses', []);
             $params['addresses'] = $addresses;
@@ -117,9 +132,9 @@ class ClientController extends ApiController {
         try {
             $contacts = $this->clientContactService->getContactsForClient($client->getId());
         } catch (\Throwable $e) {
-            $error = ['app' => 'ticky_crm', 'exception' => $e];
+            $error = ['app' => 'sticky_crm', 'exception' => $e];
             $this->logger->error(
-                'Ticky CRM: Kontakte für Kunde ' . $uuid . ' konnten nicht geladen werden: ' . $e->getMessage(),
+                'Sticky CRM: Kontakte für Kunde ' . $uuid . ' konnten nicht geladen werden: ' . $e->getMessage(),
                 $error
             );
             return new DataResponse($error, Http::STATUS_INTERNAL_SERVER_ERROR);
@@ -156,8 +171,8 @@ class ClientController extends ApiController {
             return new DataResponse($linkedContact, Http::STATUS_CREATED);
         } catch (\Throwable $e) {
             $this->logger->error(
-                'Ticky CRM: Kontakt konnte nicht verknüpft werden: ' . $e->getMessage(),
-                ['app' => 'ticky_crm', 'exception' => $e]
+                'Sticky CRM: Kontakt konnte nicht verknüpft werden: ' . $e->getMessage(),
+                ['app' => 'sticky_crm', 'exception' => $e]
             );
             return new DataResponse(['message' => $e->getMessage()], Http::STATUS_INTERNAL_SERVER_ERROR);
         }

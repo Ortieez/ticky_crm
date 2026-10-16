@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\TickyCRM\Migration;
+namespace OCA\StickyCRM\Migration;
 
 use OCP\Migration\IMigrationStep;
 use OCP\Migration\IOutput;
@@ -10,11 +10,11 @@ use Closure;
 class Version0001Date20260626 implements IMigrationStep {
 
     public function name(): string {
-        return 'Initiales Tabellen-Setup für Ticky CRM';
+        return 'Initiales Tabellen-Setup für Sticky CRM';
     }
 
     public function description(): string {
-        return 'Erstellt die Tabellen ticky_clients und ticky_client_notes.';
+        return 'Erstellt die Tabellen sticky_clients und sticky_client_notes.';
     }
 
     public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
@@ -28,8 +28,8 @@ class Version0001Date20260626 implements IMigrationStep {
         $schema = $schemaClosure();
 
         // 1. Tabelle: Stammdaten der Kunden (Clients)
-        if (!$schema->hasTable('ticky_clients')) {
-            $table = $schema->createTable('ticky_clients');
+        if (!$schema->hasTable('sticky_clients')) {
+            $table = $schema->createTable('sticky_clients');
 
             $table->addColumn('id', 'integer', ['autoincrement' => true, 'unsigned' => true]);
             $table->addColumn('uuid', 'string', ['length' => 36, 'notnull' => true]);
@@ -56,14 +56,14 @@ class Version0001Date20260626 implements IMigrationStep {
             $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
 
             $table->setPrimaryKey(['id']);
-            $table->addUniqueIndex(['uuid'], 'ticky_crm_cl_uuid_idx');
-            $table->addUniqueIndex(['client_number'], 'ticky_crm_cl_num_idx');
-            $table->addIndex(['nc_file_id'], 'ticky_crm_cl_fid_idx');
+            $table->addUniqueIndex(['uuid'], 'sticky_crm_cl_uuid_idx');
+            $table->addUniqueIndex(['client_number'], 'sticky_crm_cl_num_idx');
+            $table->addIndex(['nc_file_id'], 'sticky_crm_cl_fid_idx');
         }
 
         // 2. Tabelle: Interaktionen & Notizen (Timeline)
-        if (!$schema->hasTable('ticky_client_notes')) {
-            $table = $schema->createTable('ticky_client_notes');
+        if (!$schema->hasTable('sticky_client_notes')) {
+            $table = $schema->createTable('sticky_client_notes');
 
             $table->addColumn('id', 'integer', ['autoincrement' => true, 'unsigned' => true]);
             $table->addColumn('client_id', 'integer', ['unsigned' => true, 'notnull' => true]);
@@ -77,10 +77,10 @@ class Version0001Date20260626 implements IMigrationStep {
             $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
 
             $table->setPrimaryKey(['id']);
-            $table->addIndex(['client_id'], 'ticky_crm_nt_cid_idx');
+            $table->addIndex(['client_id'], 'sticky_crm_nt_cid_idx');
 
             $table->addForeignKeyConstraint(
-                $schema->getTable('ticky_clients'),
+                $schema->getTable('sticky_clients'),
                 ['client_id'],
                 ['id'],
                 ['onDelete' => 'CASCADE']

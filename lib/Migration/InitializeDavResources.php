@@ -1,10 +1,10 @@
 <?php
 
-namespace OCA\TickyCRM\Migration;
+namespace OCA\StickyCRM\Migration;
 
 use OCP\Migration\IOutput;
 use OCP\Migration\IRepairStep;
-use OCA\TickyCRM\Service\AccessService;
+use OCA\StickyCRM\Service\AccessService;
 
 class InitializeDavResources implements IRepairStep {
     private AccessService $accessService;
@@ -14,26 +14,26 @@ class InitializeDavResources implements IRepairStep {
     }
 
     public function getName(): string {
-        return 'Initialisiere Ticky CRM DAV Ressourcen';
+        return 'Initialisiere Sticky CRM DAV Ressourcen';
     }
 
     public function run(IOutput $output): void {
-        $output->info('-> [Ticky CRM CLI] Starte Ressourcen-Erstellung...');
+        $output->info('-> [Sticky CRM CLI] Starte Ressourcen-Erstellung...');
 
         try {
-            $output->info('-> [Ticky CRM CLI] Erstelle Adressbuch...');
+            $output->info('-> [Sticky CRM CLI] Erstelle Adressbuch...');
             $addressBook = $this->accessService->ensureSystemAddressBookProperties();
 
             if ($addressBook === null) {
-                $output->warning('-> [Ticky CRM CLI] Adressbuch konnte nicht erstellt/geladen werden, Freigaben werden übersprungen.');
+                $output->warning('-> [Sticky CRM CLI] Adressbuch konnte nicht erstellt/geladen werden, Freigaben werden übersprungen.');
                 return;
             }
 
-            $output->info('-> [Ticky CRM CLI] Synchronisiere Freigaben...');
+            $output->info('-> [Sticky CRM CLI] Synchronisiere Freigaben...');
             $this->accessService->syncAddressBookSharesFromSettings();
-            $output->info('-> [Ticky CRM CLI] Fertig.');
+            $output->info('-> [Sticky CRM CLI] Fertig.');
         } catch (\Throwable $e) {
-            $output->warning('-> [Ticky CRM CLI] Fehler: ' . get_class($e) . ': ' . $e->getMessage());
+            $output->warning('-> [Sticky CRM CLI] Fehler: ' . get_class($e) . ': ' . $e->getMessage());
             $output->warning($e->getTraceAsString());
         }
     }

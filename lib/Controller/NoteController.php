@@ -1,5 +1,5 @@
 <?php
-namespace OCA\TickyCRM\Controller;
+namespace OCA\StickyCRM\Controller;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
@@ -7,7 +7,7 @@ use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IRequest;
 use OCP\IUserSession;
-use OCA\TickyCRM\Service\NoteService;
+use OCA\StickyCRM\Service\NoteService;
 use Psr\Log\LoggerInterface;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 
@@ -41,7 +41,7 @@ class NoteController extends Controller {
         } catch (\Exception $e) {
             $this->logger->error('Failed to create note: {error}', [
                 'error' => $e->getMessage(),
-                'app'   => 'ticky_crm',
+                'app'   => 'sticky_crm',
             ]);
             return new JSONResponse(['error' => 'Internal Server Error'], Http::STATUS_INTERNAL_SERVER_ERROR);
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\TickyCRM\Migration;
+namespace OCA\StickyCRM\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;
@@ -27,8 +27,8 @@ use OCP\Migration\SimpleMigrationStep;
  */
 class Version0002Date20260730 extends SimpleMigrationStep {
 
-    private const MAPPING_TABLE = 'ticky_client_contacts';
-    private const CLIENTS_TABLE = 'ticky_clients';
+    private const MAPPING_TABLE = 'sticky_client_contacts';
+    private const CLIENTS_TABLE = 'sticky_clients';
     private const UNSIGNED_COLUMNS = ['id', 'card_id'];
 
     public function __construct(
@@ -70,7 +70,7 @@ class Version0002Date20260730 extends SimpleMigrationStep {
         }
 
         $output->warning(sprintf(
-            'Ticky CRM: entferne %d verwaiste Kontaktverknüpfung(en) vor dem Setzen des Foreign Keys.',
+            'Sticky CRM: entferne %d verwaiste Kontaktverknüpfung(en) vor dem Setzen des Foreign Keys.',
             count($orphans)
         ));
 
@@ -105,13 +105,13 @@ class Version0002Date20260730 extends SimpleMigrationStep {
         }
 
         if (!$hasClientForeignKey) {
-            $output->info('Ticky CRM: ergänze fehlenden Foreign Key auf ' . self::MAPPING_TABLE . '.');
+            $output->info('Sticky CRM: ergänze fehlenden Foreign Key auf ' . self::MAPPING_TABLE . '.');
             $table->addForeignKeyConstraint(
                 $schema->getTable(self::CLIENTS_TABLE),
                 ['client_id'],
                 ['id'],
                 ['onDelete' => 'CASCADE'],
-                'ticky_crm_cc_client_fk'
+                'sticky_crm_cc_client_fk'
             );
             $changed = true;
         }

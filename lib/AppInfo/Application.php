@@ -1,5 +1,5 @@
 <?php
-namespace OCA\TickyCRM\AppInfo;
+namespace OCA\StickyCRM\AppInfo;
 
 use OCP\AppFramework\App;
 use OCP\INavigationManager;
@@ -8,13 +8,13 @@ use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCA\DAV\Events\CardDeletedEvent;
 
-use OCA\TickyCRM\Listener\CardDeletedListener;
-use OCA\TickyCRM\Listener\NavigationListener;
-use OCA\TickyCRM\Middleware\AccessMiddleware;
-use OCA\TickyCRM\Notification\Notifier;
+use OCA\StickyCRM\Listener\CardDeletedListener;
+use OCA\StickyCRM\Listener\NavigationListener;
+use OCA\StickyCRM\Middleware\AccessMiddleware;
+use OCA\StickyCRM\Notification\Notifier;
 
 class Application extends App implements IBootstrap {
-    public const APP_ID = 'ticky_crm';
+    public const APP_ID = 'sticky_crm';
 
     public function __construct(array $urlParams = []) {
         parent::__construct(self::APP_ID, $urlParams);

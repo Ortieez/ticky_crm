@@ -1,4 +1,4 @@
-# Ticky CRM
+# Sticky CRM
 
 An Open Source, privacy-first Customer Relationship Management (CRM) app built from the ground up natively for **Nextcloud**. Manage your clients, track interactions, and collaborate with your team without leaving your digital sovereignty behind.
 

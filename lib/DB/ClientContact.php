@@ -1,5 +1,5 @@
 <?php
-namespace OCA\TickyCRM\DB;
+namespace OCA\StickyCRM\DB;
 
 use OCP\AppFramework\Db\Entity;
 use OCP\DB\Types;

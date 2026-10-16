@@ -1,8 +1,8 @@
 <?php
-namespace OCA\TickyCRM\Service;
+namespace OCA\StickyCRM\Service;
 
-use OCA\TickyCRM\DB\ClientNote;
-use OCA\TickyCRM\DB\ClientNoteMapper;
+use OCA\StickyCRM\DB\ClientNote;
+use OCA\StickyCRM\DB\ClientNoteMapper;
 use OCP\IURLGenerator;
 use OCP\Notification\IManager as INotificationManager;
 use Psr\Log\LoggerInterface;
@@ -78,13 +78,13 @@ class NoteService {
             try {
                 $notification = $this->notificationManager->createNotification();
                 $notification
-                    ->setApp('ticky_crm')
+                    ->setApp('sticky_crm')
                     ->setUser($userId)
                     ->setDateTime(new DateTime())
-                    ->setSubject('ticky_mention_subject', ['sender' => $senderId])
+                    ->setSubject('sticky_mention_subject', ['sender' => $senderId])
                     ->setObject('note', (string)$note->getId())
                     ->setLink($this->urlGenerator->getAbsoluteURL(
-                        $this->urlGenerator->linkToRoute('ticky_crm.page.index') . '?client=' . $note->getClientId() . '&tab=notes'
+                        $this->urlGenerator->linkToRoute('sticky_crm.page.index') . '?client=' . $note->getClientId() . '&tab=notes'
                     ));
 
                 $this->notificationManager->notify($notification);
@@ -92,7 +92,7 @@ class NoteService {
                 $this->logger->error('Failed to send mention notification to {user}: {error}', [
                     'user'  => $userId,
                     'error' => $e->getMessage(),
-                    'app'   => 'ticky_crm',
+                    'app'   => 'sticky_crm',
                 ]);
             }
         }

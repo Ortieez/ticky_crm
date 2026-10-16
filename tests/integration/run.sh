@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Integrationstest für Ticky CRM.
+# Integrationstest für Sticky CRM.
 #
 # Startet eine echte Nextcloud-Instanz in Docker, installiert die App und prüft,
 # dass die Migrationen durchlaufen, der Foreign Key tatsächlich gesetzt ist und
@@ -24,11 +24,11 @@ OUTPUT_SEVERITY="${OUTPUT_SEVERITY:-debug}"
 ADMIN_USER="admin"
 ADMIN_PASS="admin-integration-pw"
 
-APP_ID="ticky_crm"
+APP_ID="sticky_crm"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 APP_SOURCE="${APP_SOURCE:-$REPO_ROOT}"
 
-RUN_ID="ticky-test-$$"
+RUN_ID="sticky-test-$$"
 NETWORK="$RUN_ID-net"
 APP_CT="$RUN_ID-nc"
 DB_CT="$RUN_ID-db"
@@ -146,7 +146,7 @@ expect_ok() {
 # Die eigentliche Regressionsprüfung für Issue #2: existiert der Constraint
 # wirklich in der Datenbank? Das sagt einem weder app:enable noch die API.
 assert_foreign_key() {
-    local table="${TABLE_PREFIX}ticky_client_contacts"
+    local table="${TABLE_PREFIX}sticky_client_contacts"
     local count
 
     case "$DB" in

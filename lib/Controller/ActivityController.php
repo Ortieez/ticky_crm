@@ -1,8 +1,8 @@
 <?php
 
-namespace OCA\TickyCRM\Controller;
+namespace OCA\StickyCRM\Controller;
 
-use OCA\TickyCRM\DB\ClientMapper;
+use OCA\StickyCRM\DB\ClientMapper;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
@@ -41,7 +41,7 @@ class ActivityController extends Controller {
             $query = $this->db->getQueryBuilder();
             $query->select('*')
                 ->from('activity')
-                ->where($query->expr()->eq('app', $query->createNamedParameter('ticky_crm')))
+                ->where($query->expr()->eq('app', $query->createNamedParameter('sticky_crm')))
                 ->andWhere($query->expr()->eq('object_type', $query->createNamedParameter('client')))
                 ->andWhere($query->expr()->eq('object_id', $query->createNamedParameter((int)$client->getId())))
                 ->orderBy('timestamp', 'DESC')
@@ -51,7 +51,7 @@ class ActivityController extends Controller {
             $rows = $result->fetchAll();
             $result->closeCursor();
 
-            $l = $this->l10nFactory->get('ticky_crm');
+            $l = $this->l10nFactory->get('sticky_crm');
 
             $result = array_map(function($row) use ($l) {
                 $subject = $row['subject'];

@@ -8,7 +8,7 @@
         :append-to-body="true"
         label="displayName"
         v-model:search="searchQuery"
-        :placeholder="t('ticky_crm', 'contact_search_placeholder')"
+        :placeholder="t('sticky_crm', 'contact_search_placeholder')"
         @search="onSearchContacts"
       >
         <template #option="option">
@@ -25,7 +25,7 @@
           </div>
         </template>
         <template #no-options>
-          {{ t('ticky_crm', 'contact_no_results') }}
+          {{ t('sticky_crm', 'contact_no_results') }}
         </template>
       </NcSelect>
 
@@ -37,11 +37,11 @@
         <template v-if="isLinking" #icon>
           <NcLoadingIcon :size="20" />
         </template>
-        {{ t('ticky_crm', 'contact_link_button') }}
+        {{ t('sticky_crm', 'contact_link_button') }}
       </NcButton>
     </div>
 
-    <NcLoadingIcon v-if="isLoadingList" :name="t('ticky_crm', 'contact_loading')" />
+    <NcLoadingIcon v-if="isLoadingList" :name="t('sticky_crm', 'contact_loading')" />
 
     <ul v-else class="contacts-list">
       <li v-for="contact in linkedContacts" :key="contact.id" class="contact-item">
@@ -66,12 +66,12 @@
           </div>
         </div>
 
-        <NcActions :aria-label="t('ticky_crm', 'contact_actions_aria_label', { name: contact.displayName })">
+        <NcActions :aria-label="t('sticky_crm', 'contact_actions_aria_label', { name: contact.displayName })">
           <NcActionButton @click="openContactDetails(contact)">
             <template #icon>
               <IconEye :size="20" />
             </template>
-            {{ t('ticky_crm', 'contact_view_details') }}
+            {{ t('sticky_crm', 'contact_view_details') }}
           </NcActionButton>
           <NcActionButton
             :disabled="removingId === contact.id"
@@ -81,12 +81,12 @@
               <NcLoadingIcon v-if="removingId === contact.id" :size="20" />
               <IconDelete v-else :size="20" />
             </template>
-            {{ t('ticky_crm', 'contact_remove_link') }}
+            {{ t('sticky_crm', 'contact_remove_link') }}
           </NcActionButton>
         </NcActions>
       </li>
       <li v-if="linkedContacts.length === 0" class="empty-state text-muted">
-        {{ t('ticky_crm', 'contact_empty_state') }}
+        {{ t('sticky_crm', 'contact_empty_state') }}
       </li>
     </ul>
   </div>
@@ -129,12 +129,12 @@ async function fetchLinkedContacts() {
   isLoadingList.value = true
   try {
     const response = await axios.get(
-        generateUrl(`/apps/ticky_crm/api/v1/clients/${props.clientId}/contacts`),
+        generateUrl(`/apps/sticky_crm/api/v1/clients/${props.clientId}/contacts`),
     )
     linkedContacts.value = response.data
   } catch (error) {
-    console.error('Ticky CRM: Kontakte konnten nicht geladen werden', error)
-    showError(t('ticky_crm', 'contact_error_load'))
+    console.error('Sticky CRM: Kontakte konnten nicht geladen werden', error)
+    showError(t('sticky_crm', 'contact_error_load'))
   } finally {
     isLoadingList.value = false
   }
@@ -152,7 +152,7 @@ function onSearchContacts(searchQuery) {
     isSearching.value = true
     try {
       const response = await axios.get(
-          generateUrl('/apps/ticky_crm/api/v1/contacts/search'),
+          generateUrl('/apps/sticky_crm/api/v1/contacts/search'),
           { params: { query: searchQuery } },
       )
       const results = Array.isArray(response.data) ? response.data : []
@@ -162,8 +162,8 @@ function onSearchContacts(searchQuery) {
       const linkedIds = new Set(linkedContacts.value.map((c) => c.id))
       searchResults.value = results.filter((c) => !linkedIds.has(c.id))
     } catch (error) {
-      console.error('Ticky CRM: Kontaktsuche fehlgeschlagen', error)
-      showError(t('ticky_crm', 'contact_error_search'))
+      console.error('Sticky CRM: Kontaktsuche fehlgeschlagen', error)
+      showError(t('sticky_crm', 'contact_error_search'))
       searchResults.value = []
     } finally {
       isSearching.value = false
@@ -173,15 +173,15 @@ function onSearchContacts(searchQuery) {
 
 async function addContact() {
   if (!selectedContact.value?.id) {
-    console.warn('Ticky CRM: selectedContact hat keine gültige id', selectedContact.value)
-    showError(t('ticky_crm', 'contact_error_invalid'))
+    console.warn('Sticky CRM: selectedContact hat keine gültige id', selectedContact.value)
+    showError(t('sticky_crm', 'contact_error_invalid'))
     return
   }
 
   isLinking.value = true
   try {
     const response = await axios.post(
-        generateUrl(`/apps/ticky_crm/api/v1/clients/${props.clientId}/contacts`),
+        generateUrl(`/apps/sticky_crm/api/v1/clients/${props.clientId}/contacts`),
         { cardId: selectedContact.value.id },
     )
     const newContact = response.data
@@ -194,18 +194,18 @@ async function addContact() {
     }
 
     if (response.status === 201) {
-      showSuccess(t('ticky_crm', 'contact_success_linked'))
+      showSuccess(t('sticky_crm', 'contact_success_linked'))
     } else {
-      showInfo(t('ticky_crm', 'contact_info_already_linked'))
+      showInfo(t('sticky_crm', 'contact_info_already_linked'))
     }
 
     selectedContact.value = null
     searchResults.value = []
   } catch (error) {
-    console.error('Ticky CRM: Kontakt konnte nicht verknüpft werden', error)
+    console.error('Sticky CRM: Kontakt konnte nicht verknüpft werden', error)
     showError(
         error.response?.data?.message
-        ?? t('ticky_crm', 'contact_error_link_failed'),
+        ?? t('sticky_crm', 'contact_error_link_failed'),
     )
   } finally {
     isLinking.value = false
@@ -216,13 +216,13 @@ async function removeContact(cardId) {
   removingId.value = cardId
   try {
     await axios.delete(
-        generateUrl(`/apps/ticky_crm/api/v1/clients/${props.clientId}/contacts/${cardId}`),
+        generateUrl(`/apps/sticky_crm/api/v1/clients/${props.clientId}/contacts/${cardId}`),
     )
     linkedContacts.value = linkedContacts.value.filter((c) => c.id !== cardId)
-    showSuccess(t('ticky_crm', 'contact_success_unlinked'))
+    showSuccess(t('sticky_crm', 'contact_success_unlinked'))
   } catch (error) {
-    console.error('Ticky CRM: Verknüpfung konnte nicht entfernt werden', error)
-    showError(t('ticky_crm', 'contact_error_unlink_failed'))
+    console.error('Sticky CRM: Verknüpfung konnte nicht entfernt werden', error)
+    showError(t('sticky_crm', 'contact_error_unlink_failed'))
   } finally {
     removingId.value = null
   }
@@ -230,7 +230,7 @@ async function removeContact(cardId) {
 
 function openContactDetails(contact) {
   if (!contact) {
-    showError(t('ticky_crm', 'contact_error_missing_uid'))
+    showError(t('sticky_crm', 'contact_error_missing_uid'))
     return
   }
 

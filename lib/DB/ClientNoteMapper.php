@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\TickyCRM\DB;
+namespace OCA\StickyCRM\DB;
 
 use OCP\AppFramework\Db\QBMapper;
 use OCP\IDBConnection;
@@ -11,7 +11,7 @@ use OCP\IDBConnection;
 class ClientNoteMapper extends QBMapper {
 
     public function __construct(IDBConnection $db) {
-        parent::__construct($db, 'ticky_client_notes', ClientNote::class);
+        parent::__construct($db, 'sticky_client_notes', ClientNote::class);
     }
 
     /**

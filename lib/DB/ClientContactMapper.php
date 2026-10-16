@@ -1,5 +1,5 @@
 <?php
-namespace OCA\TickyCRM\DB;
+namespace OCA\StickyCRM\DB;
 
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
@@ -7,7 +7,7 @@ use OCP\IDBConnection;
 
 class ClientContactMapper extends QBMapper {
     public function __construct(IDBConnection $db) {
-        parent::__construct($db, 'ticky_client_contacts', ClientContact::class);
+        parent::__construct($db, 'sticky_client_contacts', ClientContact::class);
     }
 
     public function findByClient(int $clientId): array {

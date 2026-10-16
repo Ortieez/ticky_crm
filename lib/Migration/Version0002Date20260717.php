@@ -1,5 +1,5 @@
 <?php
-namespace OCA\TickyCRM\Migration;
+namespace OCA\StickyCRM\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;
@@ -15,11 +15,11 @@ class Version0002Date20260717 extends SimpleMigrationStep {
         /** @var ISchemaWrapper $schema */
         $schema = $schemaClosure();
 
-        $tickyMappingTable = 'ticky_client_contacts';
-        $tickyClientsTable = 'ticky_clients';
+        $stickyMappingTable = 'sticky_client_contacts';
+        $stickyClientsTable = 'sticky_clients';
 
-        if (!$schema->hasTable($tickyMappingTable)) {
-            $table = $schema->createTable($tickyMappingTable);
+        if (!$schema->hasTable($stickyMappingTable)) {
+            $table = $schema->createTable($stickyMappingTable);
 
             $table->addColumn('id', 'integer', [
                 'autoincrement' => true,
@@ -30,7 +30,7 @@ class Version0002Date20260717 extends SimpleMigrationStep {
             $table->addColumn('client_id', 'integer', [
                 'notnull' => true,
                 'unsigned' => true,
-                'comment' => 'ID aus der ticky_clients Tabelle',
+                'comment' => 'ID aus der sticky_clients Tabelle',
             ]);
 
             $table->addColumn('card_id', 'integer', [
@@ -45,16 +45,16 @@ class Version0002Date20260717 extends SimpleMigrationStep {
             ]);
 
             $table->setPrimaryKey(['id']);
-            $table->addIndex(['client_id'], 'ticky_client_idx');
-            $table->addIndex(['card_id'], 'ticky_card_idx');
+            $table->addIndex(['client_id'], 'sticky_client_idx');
+            $table->addIndex(['card_id'], 'sticky_card_idx');
 
-            $table->addUniqueIndex(['client_id', 'card_id'], 'ticky_uniq_mapping');
+            $table->addUniqueIndex(['client_id', 'card_id'], 'sticky_uniq_mapping');
             $table->addForeignKeyConstraint(
-                $schema->getTable($tickyClientsTable),
+                $schema->getTable($stickyClientsTable),
                 ['client_id'],
                 ['id'],
                 ['onDelete' => 'CASCADE'],
-                'ticky_crm_cc_client_fk'
+                'sticky_crm_cc_client_fk'
             );
         }
 

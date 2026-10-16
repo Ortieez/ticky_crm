@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\TickyCRM\Service;
+namespace OCA\StickyCRM\Service;
 
 use OCP\Activity\IManager;
 use OCP\AppFramework\Db\Entity;
@@ -27,8 +27,8 @@ class ActivityService {
             $id = $objectId ?? 0;
 
             $activity = $this->activityManager->generateEvent();
-            $activity->setApp('ticky_crm')
-                ->setType('ticky_crm_' . $objectType)
+            $activity->setApp('sticky_crm')
+                ->setType('sticky_crm_' . $objectType)
                 ->setAffectedUser($userId)
                 ->setSubject($subject, $subjectParams)
                 ->setObject($objectType, $id, $displayName);

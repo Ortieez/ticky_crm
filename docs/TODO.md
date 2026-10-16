@@ -9,16 +9,16 @@ Points found to be changed:
     - Document this in DEVELOPER.md
 
 ## Database
-- why ticky_client_contacts has no cascaded delete constraint to oc_card?
+- why sticky_client_contacts has no cascaded delete constraint to oc_card?
 - Fatabase: Common id (PK & FK) definition: autoincrement, unsigned, length=11
 
 ## Generic notes
-- Rename table ticky_client_notes to Table: ticky_notes
+- Rename table sticky_client_notes to Table: sticky_notes
 - Rename field client_id to table_id
 - Add column table_name string
-- Update all empty table_name to 'ticky_clients'
+- Update all empty table_name to 'sticky_clients'
 - Change index client_id -> table_name, table_id
-- Change constraint client_id -> table_id table_name='ticky_clients'
+- Change constraint client_id -> table_id table_name='sticky_clients'
 - Change add, list of notes (add table_name)
 
 ## Extend generic notes

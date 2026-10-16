@@ -1,9 +1,9 @@
 <?php
-namespace OCA\TickyCRM\Listener;
+namespace OCA\StickyCRM\Listener;
 
 use OCP\IURLGenerator;
 use OCP\IUserSession;
-use OCA\TickyCRM\Service\AccessService;
+use OCA\StickyCRM\Service\AccessService;
 
 class NavigationListener {
 
@@ -20,18 +20,18 @@ class NavigationListener {
 
     public function getNavigationEntry(): array {
         try {
-            $icon = $this->urlGenerator->imagePath('ticky_crm', 'ticky.svg');
+            $icon = $this->urlGenerator->imagePath('sticky_crm', 'sticky.svg');
         } catch (\RuntimeException $e) {
             $icon = $this->urlGenerator->imagePath('core', 'places/default-app-icon.svg');
         }
 
         return [
-            'id'    => 'ticky_crm',
+            'id'    => 'sticky_crm',
             'order' => 10,
-            'href'  => $this->urlGenerator->linkToRoute('ticky_crm.page.index'),
+            'href'  => $this->urlGenerator->linkToRoute('sticky_crm.page.index'),
             'icon'  => $icon,
-            'name'  => 'Ticky CRM',
-            'app'   => 'ticky_crm', // Pflichtfeld damit isAlwaysEnabled() nicht null bekommt
+            'name'  => 'Sticky CRM',
+            'app'   => 'sticky_crm', // Pflichtfeld damit isAlwaysEnabled() nicht null bekommt
         ];
     }
 }

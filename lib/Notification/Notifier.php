@@ -1,5 +1,5 @@
 <?php
-namespace OCA\TickyCRM\Notification;
+namespace OCA\StickyCRM\Notification;
 
 use OCP\IURLGenerator;
 use OCP\L10N\IFactory;
@@ -15,23 +15,23 @@ class Notifier implements INotifier {
     ) {}
 
     public function getID(): string {
-        return 'ticky_crm';
+        return 'sticky_crm';
     }
 
     public function getName(): string {
-        return 'Ticky CRM';
+        return 'Sticky CRM';
     }
 
     public function prepare(INotification $notification, string $languageCode): INotification {
-        if ($notification->getApp() !== 'ticky_crm') {
+        if ($notification->getApp() !== 'sticky_crm') {
             throw new UnknownNotificationException();
         }
 
-        $l = $this->l10nFactory->get('ticky_crm', $languageCode);
+        $l = $this->l10nFactory->get('sticky_crm', $languageCode);
 
-        if ($notification->getSubject() === 'ticky_mention_subject') {
+        if ($notification->getSubject() === 'sticky_mention_subject') {
             $params = $notification->getSubjectParameters();
-            $translated = $l->t('ticky_mention_subject');
+            $translated = $l->t('sticky_mention_subject');
             $parsed = str_replace('{sender}', $params['sender'], $translated);
             $notification->setParsedSubject($parsed);
             return $notification;

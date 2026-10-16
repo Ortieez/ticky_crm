@@ -1,7 +1,7 @@
 OC.L10N.register(
-    "ticky_crm",
+    "sticky_crm",
     {
-  "ticky_mention_subject": "{sender} hat dich in einer Notiz erwähnt",
+  "sticky_mention_subject": "{sender} hat dich in einer Notiz erwähnt",
   "settings_title": "Zugriffsberechtigungen",
   "settings_description": "Bestimme, wer das CRM sehen und nutzen darf. Admins haben immer Zugriff. Sind keine Gruppen oder User eingetragen, haben alle Zugriff.",
   "settings_loading": "Lade Einstellungen...",
@@ -60,7 +60,7 @@ OC.L10N.register(
   "confirm_delete_note": "Möchtest du diese Notiz wirklich löschen?",
   "mention_searching": "Suche Nutzer...",
   "mention_empty": "Keine Nutzer gefunden",
-  "app_title": "Ticky CRM",
+  "app_title": "Sticky CRM",
   "nav_clients": "Kunden",
   "nav_settings": "Einstellungen",
   "page_heading_clients": "Kundenverwaltung",
@@ -95,7 +95,7 @@ OC.L10N.register(
   "client_updated": "Kunde wurde aktualisiert",
   "client_contact_linked": "Kontakt verknüpft",
   "client_contact_unlinked": "Kontakt wurde entfernt",
-  "contact_search_placeholder": "Kontakt aus Ticky-Adressbuch suchen …",
+  "contact_search_placeholder": "Kontakt aus Sticky-Adressbuch suchen …",
   "contact_no_results": "Keine Kontakte gefunden.",
   "contact_link_button": "Verknüpfen",
   "contact_loading": "Lade Kontakte …",
@@ -111,7 +111,18 @@ OC.L10N.register(
   "contact_error_link_failed": "Kontakt konnte nicht verknüpft werden.",
   "contact_success_unlinked": "Verknüpfung wurde entfernt.",
   "contact_error_unlink_failed": "Verknüpfung konnte nicht entfernt werden.",
-  "contact_error_missing_uid": "Kontakt besitzt keine gültige UID."
+  "contact_error_missing_uid": "Kontakt besitzt keine gültige UID.",
+  "settings_global_title": "Globale CRM-Einstellungen",
+  "field_assigned_to": "Zuständig (Bearbeiter)",
+  "placeholder_assigned_to": "Person auswählen oder eingeben...",
+  "field_tier": "Partnerschaftsstufe",
+  "field_categories": "Kategorien / Tags",
+  "btn_add_email": "E-Mail hinzufügen",
+  "btn_add_phone": "Telefon hinzufügen",
+  "section_custom_fields": "Benutzerdefinierte Felder",
+  "nav_all_clients": "Alle Sponsoren",
+  "nav_my_clients": "Meine Sponsoren",
+  "nav_dashboard": "Übersicht & Statistik"
 },
     "nplurals=2; plural=(n != 1);"
 );

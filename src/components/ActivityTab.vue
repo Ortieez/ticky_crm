@@ -1,12 +1,12 @@
 <template>
-  <div class="ticky-activities-container">
+  <div class="sticky-activities-container">
     <div v-if="loading" class="activity-state activity-loading">
       <!--      <NcLoadingIcon :size="24" />-->
-      <p>{{ t('ticky_crm', 'loading_activities') }}</p>
+      <p>{{ t('sticky_crm', 'loading_activities') }}</p>
     </div>
 
     <div v-else-if="activities.length === 0" class="activity-state activity-empty">
-      <p>{{ t('ticky_crm', 'no_activities_found') }}</p>
+      <p>{{ t('sticky_crm', 'no_activities_found') }}</p>
     </div>
 
     <div v-else class="activity-timeline">
@@ -54,11 +54,11 @@ const fetchActivities = async () => {
 
   loading.value = true
   try {
-    const url = generateUrl(`/apps/ticky_crm/api/v1/clients/${props.clientUuid}/activities`)
+    const url = generateUrl(`/apps/sticky_crm/api/v1/clients/${props.clientUuid}/activities`)
     const response = await axios.get(url)
     activities.value = response.data
   } catch (error) {
-    console.error('Fehler beim Laden der Ticky-Aktivitäten:', error)
+    console.error('Fehler beim Laden der Sticky-Aktivitäten:', error)
   } finally {
     loading.value = false
   }
@@ -88,7 +88,7 @@ watch(() => props.clientUuid, () => {
 </script>
 
 <style lang="scss" scoped>
-.ticky-activities-container {
+.sticky-activities-container {
   width: 100%;
   height: 100%;
   display: flex;

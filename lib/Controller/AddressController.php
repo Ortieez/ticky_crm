@@ -1,7 +1,7 @@
 <?php
-namespace OCA\TickyCRM\Controller;
+namespace OCA\StickyCRM\Controller;
 
-use OCA\TickyCRM\Service\AddressService;
+use OCA\StickyCRM\Service\AddressService;
 use OCP\AppFramework\ApiController;
 use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
@@ -18,7 +18,7 @@ class AddressController extends ApiController {
 
     /**
      * @NoAdminRequired
-     * * GET /apps/ticky_crm/api/v1/clients/{clientUuid}/addresses
+     * * GET /apps/sticky_crm/api/v1/clients/{clientUuid}/addresses
      */
     public function index(string $clientUuid): DataResponse {
         try {

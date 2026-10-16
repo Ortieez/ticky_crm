@@ -1,5 +1,5 @@
 {
-  "name": "identspace/ticky_crm",
+  "name": "identspace/sticky_crm",
   "version": "0.1.0",
   "description": "Nextcloud CRM",
   "license": "agpl-3.0-or-later",
@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "OCA\\TickyCRM\\": "lib/"
+      "OCA\\StickyCRM\\": "lib/"
     }
   },
   "config": {

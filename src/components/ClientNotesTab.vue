@@ -1,50 +1,50 @@
 <template>
-  <div class="ticky-client-notes">
-    <form class="ticky-note-form" @submit.prevent="handleCreate">
+  <div class="sticky-client-notes">
+    <form class="sticky-note-form" @submit.prevent="handleCreate">
       <input
         v-model="newNote.title"
         type="text"
-        :placeholder="t('ticky_crm', 'note_title_placeholder')"
-        class="ticky-input"
+        :placeholder="t('sticky_crm', 'note_title_placeholder')"
+        class="sticky-input"
       >
 
-      <select v-model="newNote.type" class="ticky-input">
+      <select v-model="newNote.type" class="sticky-input">
         <option value="note">
-          📝 {{ t('ticky_crm', 'note_type_note') }}
+          📝 {{ t('sticky_crm', 'note_type_note') }}
         </option>
         <option value="phone">
-          📞 {{ t('ticky_crm', 'note_type_phone') }}
+          📞 {{ t('sticky_crm', 'note_type_phone') }}
         </option>
         <option value="meeting">
-          🤝 {{ t('ticky_crm', 'note_type_meeting') }}
+          🤝 {{ t('sticky_crm', 'note_type_meeting') }}
         </option>
       </select>
 
-      <div class="ticky-textarea-wrapper">
+      <div class="sticky-textarea-wrapper">
         <textarea
           ref="newNoteTextarea"
           v-model="newNote.content"
-          :placeholder="t('ticky_crm', 'note_content_placeholder')"
+          :placeholder="t('sticky_crm', 'note_content_placeholder')"
           required
           rows="4"
-          class="ticky-textarea"
+          class="sticky-textarea"
           @input="(e) => checkForMention(e, 'new')"
           @keyup.esc="closeMentionDropdown"
         />
 
-        <div v-if="showMentionDropdown && activeMentionTarget === 'new'" class="ticky-mention-dropdown">
-          <div v-if="isSearchingUsers" class="ticky-mention-loading">
-            {{ t('ticky_crm', 'mention_searching') }}
+        <div v-if="showMentionDropdown && activeMentionTarget === 'new'" class="sticky-mention-dropdown">
+          <div v-if="isSearchingUsers" class="sticky-mention-loading">
+            {{ t('sticky_crm', 'mention_searching') }}
           </div>
-          <div v-else-if="mentionUsers.length === 0" class="ticky-mention-empty">
-            {{ t('ticky_crm', 'mention_empty') }}
+          <div v-else-if="mentionUsers.length === 0" class="sticky-mention-empty">
+            {{ t('sticky_crm', 'mention_empty') }}
           </div>
           <button
             v-for="user in mentionUsers"
             v-else
             :key="user.id"
             type="button"
-            class="ticky-mention-item"
+            class="sticky-mention-item"
             @click.prevent="insertMention(user, 'new')"
           >
             <strong>{{ user.label }}</strong> <small>({{ user.id }})</small>
@@ -52,65 +52,65 @@
         </div>
       </div>
 
-      <div class="ticky-form-actions">
+      <div class="sticky-form-actions">
         <button type="submit" class="primary" :disabled="loading || !newNote.content.trim()">
-          {{ t('ticky_crm', 'note_save') }}
+          {{ t('sticky_crm', 'note_save') }}
         </button>
       </div>
     </form>
 
-    <hr class="ticky-separator">
+    <hr class="sticky-separator">
 
-    <div v-if="loading && notes.length === 0" class="ticky-state-message">
-      {{ t('ticky_crm', 'note_loading') }}
+    <div v-if="loading && notes.length === 0" class="sticky-state-message">
+      {{ t('sticky_crm', 'note_loading') }}
     </div>
 
-    <div v-else-if="notes.length === 0" class="ticky-state-message">
-      {{ t('ticky_crm', 'note_empty_state') }}
+    <div v-else-if="notes.length === 0" class="sticky-state-message">
+      {{ t('sticky_crm', 'note_empty_state') }}
     </div>
 
-    <div v-else class="ticky-notes-list">
+    <div v-else class="sticky-notes-list">
       <div
         v-for="note in notes"
         :key="note.id"
-        class="ticky-note-item"
+        class="sticky-note-item"
         :class="'type-' + note.type"
       >
-        <div class="ticky-note-header">
-          <span class="ticky-note-icon">{{ getTypeIcon(note.type) }}</span>
-          <strong class="ticky-note-title">
-            {{ note.title || t('ticky_crm', 'note_type_default') }}
+        <div class="sticky-note-header">
+          <span class="sticky-note-icon">{{ getTypeIcon(note.type) }}</span>
+          <strong class="sticky-note-title">
+            {{ note.title || t('sticky_crm', 'note_type_default') }}
           </strong>
-          <span class="ticky-note-meta">
+          <span class="sticky-note-meta">
             {{ formatUser(note.user_id) }} • {{ formatDate(note.created_at) }}
           </span>
         </div>
 
-        <div class="ticky-note-body">
-          <div v-if="editingId === note.id" class="ticky-edit-mode">
-            <div class="ticky-textarea-wrapper">
+        <div class="sticky-note-body">
+          <div v-if="editingId === note.id" class="sticky-edit-mode">
+            <div class="sticky-textarea-wrapper">
               <textarea
                 :ref="el => { if (el) editNoteTextareaEl = el }"
                 v-model="editData.content"
-                class="ticky-textarea"
+                class="sticky-textarea"
                 rows="3"
                 @input="(e) => checkForMention(e, 'edit')"
                 @keyup.esc="closeMentionDropdown"
               />
 
-              <div v-if="showMentionDropdown && activeMentionTarget === 'edit'" class="ticky-mention-dropdown">
-                <div v-if="isSearchingUsers" class="ticky-mention-loading">
-                  {{ t('ticky_crm', 'mention_searching') }}
+              <div v-if="showMentionDropdown && activeMentionTarget === 'edit'" class="sticky-mention-dropdown">
+                <div v-if="isSearchingUsers" class="sticky-mention-loading">
+                  {{ t('sticky_crm', 'mention_searching') }}
                 </div>
-                <div v-else-if="mentionUsers.length === 0" class="ticky-mention-empty">
-                  {{ t('ticky_crm', 'mention_empty') }}
+                <div v-else-if="mentionUsers.length === 0" class="sticky-mention-empty">
+                  {{ t('sticky_crm', 'mention_empty') }}
                 </div>
                 <button
                   v-for="user in mentionUsers"
                   v-else
                   :key="user.id"
                   type="button"
-                  class="ticky-mention-item"
+                  class="sticky-mention-item"
                   @click.prevent="insertMention(user, 'edit')"
                 >
                   <strong>{{ user.label }}</strong> <small>({{ user.id }})</small>
@@ -118,34 +118,34 @@
               </div>
             </div>
 
-            <div class="ticky-edit-actions">
+            <div class="sticky-edit-actions">
               <button class="primary" @click="handleUpdate(note.id)">
-                {{ t('ticky_crm', 'note_edit_ok') }}
+                {{ t('sticky_crm', 'note_edit_ok') }}
               </button>
               <button @click="cancelEdit">
-                {{ t('ticky_crm', 'client_cancel') }}
+                {{ t('sticky_crm', 'client_cancel') }}
               </button>
             </div>
           </div>
           <!-- eslint-disable-next-line -->
-          <p v-else class="ticky-note-text" v-html="safeMentions(renderMentions(note.content))" />
+          <p v-else class="sticky-note-text" v-html="safeMentions(renderMentions(note.content))" />
         </div>
 
-        <div v-if="editingId !== note.id" class="ticky-context-menu">
+        <div v-if="editingId !== note.id" class="sticky-context-menu">
           <button
-            class="ticky-menu-trigger"
-            :title="t('ticky_crm', 'note_options')"
+            class="sticky-menu-trigger"
+            :title="t('sticky_crm', 'note_options')"
             @click.stop="toggleMenu(note.id)"
           >
             ⋮
           </button>
 
-          <div v-if="activeMenuId === note.id" class="ticky-dropdown">
+          <div v-if="activeMenuId === note.id" class="sticky-dropdown">
             <button @click.stop="startEdit(note)">
-              ✏️ {{ t('ticky_crm', 'note_edit') }}
+              ✏️ {{ t('sticky_crm', 'note_edit') }}
             </button>
-            <button class="ticky-text-danger" @click.stop="handleDelete(note.id)">
-              🗑️ {{ t('ticky_crm', 'note_delete') }}
+            <button class="sticky-text-danger" @click.stop="handleDelete(note.id)">
+              🗑️ {{ t('sticky_crm', 'note_delete') }}
             </button>
           </div>
         </div>
@@ -191,7 +191,7 @@ const fetchNotes = async () => {
   if (!props.clientId) return
   loading.value = true
   try {
-    const url = generateUrl(`/apps/ticky_crm/api/v1/clients/${props.clientId}/notes`)
+    const url = generateUrl(`/apps/sticky_crm/api/v1/clients/${props.clientId}/notes`)
     const response = await axios.get(url)
     notes.value = response.data
   } catch (error) {
@@ -206,7 +206,7 @@ watch(() => props.clientId, fetchNotes, { immediate: true })
 const handleCreate = async () => {
   if (!newNote.content.trim()) return
   try {
-    const url = generateUrl(`/apps/ticky_crm/api/v1/clients/${props.clientId}/notes`)
+    const url = generateUrl(`/apps/sticky_crm/api/v1/clients/${props.clientId}/notes`)
     const response = await axios.post(url, newNote)
     notes.value.unshift(response.data)
     newNote.title = ''
@@ -234,7 +234,7 @@ const cancelEdit = () => {
 
 const handleUpdate = async (id) => {
   try {
-    const url = generateUrl(`/apps/ticky_crm/api/v1/notes/${id}`)
+    const url = generateUrl(`/apps/sticky_crm/api/v1/notes/${id}`)
     const response = await axios.put(url, editData)
     const index = notes.value.findIndex(n => n.id === id)
     if (index !== -1) {
@@ -248,9 +248,9 @@ const handleUpdate = async (id) => {
 
 const handleDelete = async (id) => {
   // Übersetzter JS-Confirm Dialog
-  if (!confirm(t('ticky_crm', 'confirm_delete_note'))) return
+  if (!confirm(t('sticky_crm', 'confirm_delete_note'))) return
   try {
-    const url = generateUrl(`/apps/ticky_crm/api/v1/notes/${id}`)
+    const url = generateUrl(`/apps/sticky_crm/api/v1/notes/${id}`)
     await axios.delete(url)
     notes.value = notes.value.filter(n => n.id !== id)
     closeMenu()
@@ -349,7 +349,7 @@ const renderMentions = (content) => {
       .replace(/>/g, '&gt;')
   return escaped.replace(
       /\[@(.*?)\]/g,
-      '<span class="ticky-mention-badge">@$1</span>'
+      '<span class="sticky-mention-badge">@$1</span>'
   )
 }
 
@@ -372,14 +372,14 @@ onMounted(() => document.addEventListener('click', closeMenu))
 onUnmounted(() => document.removeEventListener('click', closeMenu))
 </script>
 <style lang="scss" scoped>
-.ticky-client-notes {
+.sticky-client-notes {
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 24px;
 
-  .ticky-input,
-  .ticky-textarea {
+  .sticky-input,
+  .sticky-textarea {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid var(--color-border);
@@ -395,11 +395,11 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
     }
   }
 
-  .ticky-textarea {
+  .sticky-textarea {
     resize: vertical;
   }
 
-  .ticky-note-form {
+  .sticky-note-form {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -407,32 +407,32 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
     padding: 16px;
     border-radius: var(--border-radius-large);
 
-    .ticky-form-actions {
+    .sticky-form-actions {
       display: flex;
       justify-content: flex-end;
       margin-top: 4px;
     }
   }
 
-  .ticky-separator {
+  .sticky-separator {
     border: 0;
     border-top: 1px solid var(--color-border);
     margin: 0;
   }
 
-  .ticky-state-message {
+  .sticky-state-message {
     text-align: center;
     color: var(--color-text-maxcaption);
     padding: 24px 0;
   }
 
-  .ticky-notes-list {
+  .sticky-notes-list {
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
 
-  .ticky-note-item {
+  .sticky-note-item {
     position: relative;
     padding: 16px;
     border-left: 4px solid var(--color-primary);
@@ -443,26 +443,26 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
     &.type-phone { border-left-color: #3498db; }
     &.type-meeting { border-left-color: #2ecc71; }
 
-    .ticky-note-header {
+    .sticky-note-header {
       display: flex;
       align-items: center;
       gap: 8px;
       margin-bottom: 12px;
       padding-right: 24px;
 
-      .ticky-note-title {
+      .sticky-note-title {
         font-size: 14px;
         color: var(--color-main-text);
       }
 
-      .ticky-note-meta {
+      .sticky-note-meta {
         font-size: 12px;
         color: var(--color-text-maxcaption);
         margin-left: auto;
       }
     }
 
-    .ticky-note-text {
+    .sticky-note-text {
       white-space: pre-wrap;
       margin: 0;
       font-size: 13px;
@@ -470,12 +470,12 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
       line-height: 1.5;
     }
 
-    .ticky-context-menu {
+    .sticky-context-menu {
       position: absolute;
       top: 12px;
       right: 8px;
 
-      .ticky-menu-trigger {
+      .sticky-menu-trigger {
         background: transparent;
         border: none;
         color: var(--color-text-maxcaption);
@@ -491,7 +491,7 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
         }
       }
 
-      .ticky-dropdown {
+      .sticky-dropdown {
         position: absolute;
         top: 100%;
         right: 0;
@@ -518,17 +518,17 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
           gap: 8px;
 
           &:hover { background-color: var(--color-background-hover); }
-          &.ticky-text-danger { color: var(--color-error); }
+          &.sticky-text-danger { color: var(--color-error); }
         }
       }
     }
 
-    .ticky-edit-mode {
+    .sticky-edit-mode {
       display: flex;
       flex-direction: column;
       gap: 12px;
 
-      .ticky-edit-actions {
+      .sticky-edit-actions {
         display: flex;
         gap: 8px;
       }
@@ -536,12 +536,12 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
   }
 }
 
-.ticky-textarea-wrapper {
+.sticky-textarea-wrapper {
   position: relative;
   width: 100%;
 }
 
-.ticky-mention-dropdown {
+.sticky-mention-dropdown {
   position: absolute;
   top: 100%;
   left: 0;
@@ -556,7 +556,7 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
   display: flex;
   flex-direction: column;
 
-  .ticky-mention-item {
+  .sticky-mention-item {
     padding: 10px 12px;
     background: transparent;
     border: none;
@@ -574,8 +574,8 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
     }
   }
 
-  .ticky-mention-loading,
-  .ticky-mention-empty {
+  .sticky-mention-loading,
+  .sticky-mention-empty {
     padding: 12px;
     text-align: center;
     color: var(--color-text-maxcaption);
@@ -583,7 +583,7 @@ onUnmounted(() => document.removeEventListener('click', closeMenu))
   }
 }
 
-:deep(.ticky-mention-badge) {
+:deep(.sticky-mention-badge) {
   display: inline-block;
   background-color: var(--color-primary-light);
   color: var(--color-primary-element);

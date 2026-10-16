@@ -34,13 +34,13 @@ php occ files:cleanup
 
 ## On boarding
 
-- Clone repository from gitlab ```git clone https://github.com/IdentSpace/ticky_crm.git```
+- Clone repository from gitlab ```git clone https://github.com/IdentSpace/sticky_crm.git```
 - Do an ```npm i``` to install all packages - use ```npm i --force``` if you get some dependency errors
 - Try ```npm run build:code``` and ```npm run build:translations```
 - If you have a local Nextcloud instance running (Linux):
-    - Add symbolic link ```ln -s <source dir> <target dir>``` where source dir is your cloned repository and target dir is in your www/nextcloud/apps folder e.g. ```ln -s /home/user/ticky_crm /var/www/nextcloud/apps/ticky_crm```
-    - Ensure that www-data has write access to this directory e.g. /home/user/ticky_crm
-    - Now you should be able to activate the app ticky_crm in the Nextcloud
+    - Add symbolic link ```ln -s <source dir> <target dir>``` where source dir is your cloned repository and target dir is in your www/nextcloud/apps folder e.g. ```ln -s /home/user/sticky_crm /var/www/nextcloud/apps/sticky_crm```
+    - Ensure that www-data has write access to this directory e.g. /home/user/sticky_crm
+    - Now you should be able to activate the app sticky_crm in the Nextcloud
     - Download and install composer (PHP) from https://getcomposer.org/
     - Execute ```composer i```
 - To run integration tests or release you need docker to be installed:

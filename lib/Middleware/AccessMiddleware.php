@@ -1,11 +1,11 @@
 <?php
-namespace OCA\TickyCRM\Middleware;
+namespace OCA\StickyCRM\Middleware;
 
 use OCP\AppFramework\Middleware;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http;
 use OCP\IUserSession;
-use OCA\TickyCRM\Service\AccessService;
+use OCA\StickyCRM\Service\AccessService;
 
 class AccessMiddleware extends Middleware {
 
@@ -27,7 +27,7 @@ class AccessMiddleware extends Middleware {
         if ((int)$exception->getCode() === Http::STATUS_FORBIDDEN) {
             return new JSONResponse([
                 'error'   => 'Forbidden',
-                'message' => 'Du hast keine Berechtigung für Ticky CRM.',
+                'message' => 'Du hast keine Berechtigung für Sticky CRM.',
             ], Http::STATUS_FORBIDDEN);
         }
 

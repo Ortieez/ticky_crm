@@ -1,7 +1,7 @@
 OC.L10N.register(
-    "ticky_crm",
+    "sticky_crm",
     {
-  "ticky_mention_subject": "{sender} mentioned you in a note",
+  "sticky_mention_subject": "{sender} mentioned you in a note",
   "settings_title": "Access Permissions",
   "settings_description": "Determine who can see and use the CRM. Admins always have access. If no groups or users are specified, everyone has access.",
   "settings_loading": "Loading settings...",
@@ -60,7 +60,7 @@ OC.L10N.register(
   "confirm_delete_note": "Are you sure you want to delete this note?",
   "mention_searching": "Searching users...",
   "mention_empty": "No users found",
-  "app_title": "Ticky CRM",
+  "app_title": "Sticky CRM",
   "nav_clients": "Customer",
   "nav_settings": "Settings",
   "page_heading_clients": "Client Management",
@@ -94,7 +94,7 @@ OC.L10N.register(
   "client_updated": "Client updated",
   "client_contact_linked": "Contact linked",
   "client_contact_unlinked": "Contact unlinked",
-  "contact_search_placeholder": "Search contact in Ticky address book …",
+  "contact_search_placeholder": "Search contact in Sticky address book …",
   "contact_no_results": "No contacts found.",
   "contact_link_button": "Link",
   "contact_loading": "Loading contacts …",
@@ -110,7 +110,18 @@ OC.L10N.register(
   "contact_error_link_failed": "Contact could not be linked.",
   "contact_success_unlinked": "Link was removed.",
   "contact_error_unlink_failed": "Link could not be removed.",
-  "contact_error_missing_uid": "Contact does not have a valid UID."
+  "contact_error_missing_uid": "Contact does not have a valid UID.",
+  "settings_global_title": "Global CRM Settings",
+  "field_assigned_to": "Assignee (Who handles it)",
+  "placeholder_assigned_to": "Select or type person name...",
+  "field_tier": "Partnership Tier",
+  "field_categories": "Categories / Tags",
+  "btn_add_email": "Add email",
+  "btn_add_phone": "Add phone",
+  "section_custom_fields": "Custom Fields",
+  "nav_all_clients": "All Sponsors",
+  "nav_my_clients": "My Sponsors",
+  "nav_dashboard": "Overview & Stats"
 },
     "nplurals=2; plural=(n != 1);"
 );

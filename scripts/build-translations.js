@@ -19,7 +19,7 @@ LANGUAGES.forEach(lang => {
     const { translations, pluralForm } = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 
     const jsContent = `OC.L10N.register(
-    "ticky_crm",
+    "sticky_crm",
     ${JSON.stringify(translations, null, 2)},
     "${pluralForm}"
 );`;
